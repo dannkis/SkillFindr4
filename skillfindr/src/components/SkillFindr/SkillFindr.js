@@ -9,7 +9,7 @@ import {
   Column,
   FlexGrid,
 } from '@carbon/react';
-import { ChatLaunch, ArrowRight } from '@carbon/icons-react';
+import { ChatLaunch, ArrowRight, Chat } from '@carbon/icons-react';
 
 const ChatbotPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,15 +23,9 @@ const ChatbotPopup = () => {
   if (!isMounted) return null;
 
   return ReactDOM.createPortal(
-    <FlexGrid
-      condensed
-      style={{
-        margin: 0,
-        padding: 0,
-      }}
-    >
-      <Row style={{ margin: 0, padding: 0 }}>
-        <Column style={{ margin: 0, padding: 0 }}>
+    <FlexGrid condensed>
+      <Row>
+        <Column>
           {!isOpen && (
             <IconButton
               renderIcon={ChatLaunch}
@@ -43,7 +37,6 @@ const ChatbotPopup = () => {
                 position: 'fixed',
                 bottom: '2rem',
                 right: '2rem',
-                margin: 0,
                 zIndex: 1000,
                 justifyContent: 'center',
               }}
@@ -62,123 +55,101 @@ const ChatbotPopup = () => {
                 backgroundColor: '#ffffff',
                 zIndex: 1000,
                 border: '1px solid #e0e0e0',
-                margin: 0,
-                padding: 0,
                 display: 'flex',
                 flexDirection: 'column',
-              }}
-            >
-              <Row condensed style={{ margin: 0, padding: 0 }}>
-                <Column style={{ margin: 0, padding: 0 }}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      padding: '1rem',
-                      backgroundColor: '#f4f4f4',
-                    }}
-                  >
-                    <span>
-                      <h6>Powered by AI</h6>
-                      <h4
-                        style={{
-                          margin: 0,
-                        }}
-                      >
-                        SkillFindr
-                      </h4>
-                    </span>
-
-                    <Button
-                      kind="ghost"
-                      size="small"
-                      onClick={() => setIsOpen(false)}
+                margin: 0,
+                padding: 0,
+              }}>
+              <Row
+                style={{
+                  backgroundColor: '#f4f4f4',
+                  margin: 0,
+                  padding: 0,
+                }}>
+                <Column
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    padding: '1rem 1rem',
+                  }}>
+                  <span>
+                    <h6>Powered by AI</h6>
+                    <h4
                       style={{
-                        fontSize: '1rem',
-                        fontWeight: 'bold',
-                        padding: '0 1rem',
-                        alignItems: 'center',
-                      }}
-                    >
-                      ✕
-                    </Button>
-                  </div>
+                        margin: 0,
+                      }}>
+                      SkillFindr
+                    </h4>
+                  </span>
+
+                  <Button
+                    kind="ghost"
+                    size="small"
+                    onClick={() => setIsOpen(false)}
+                    style={{
+                      fontSize: '1rem',
+                      fontWeight: 'bold',
+                      padding: '0 1rem',
+                      alignItems: 'center',
+                    }}>
+                    ✕
+                  </Button>
                 </Column>
               </Row>
-              <Row condensed style={{ margin: 0, padding: 0 }}>
+              <Row
+                condensed
+                style={{
+                  margin: 0,
+                  padding: '1rem',
+                }}>
                 <Column style={{ margin: 0, padding: 0 }}>
                   <div
                     style={{
-                      padding: '1rem',
-                      overflowY: 'auto',
-                      fontSize: '0.875rem',
-                      color: '#393939',
-                    }}
-                  >
+                      marginBottom: '1rem',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                    }}>
+                    <span className="bg-primary">
+                      <Chat
+                        size={30}
+                        style={{ margin: '10' }}
+                        className="white"
+                      />
+                    </span>
                     <div
                       style={{
-                        marginBottom: '1rem',
-                        display: 'flex',
-                        alignItems: 'flex-start',
-                      }}
-                    >
-                      <div
+                        marginLeft: '0.75rem',
+                        padding: '0.5rem 1rem',
+                        backgroundColor: '#e0e0e0',
+                      }}>
+                      <p
                         style={{
-                          backgroundColor: '#0f62fe',
-                          color: '#ffffff',
-                          borderRadius: '50%',
-                          width: '40px',
-                          height: '40px',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
+                          margin: 0,
                           fontWeight: 600,
-                        }}
-                      >
-                        S
-                      </div>
-                      <div
-                        style={{
-                          marginLeft: '0.75rem',
-                          padding: '0.5rem 1rem',
-                          backgroundColor: '#e0e0e0',
-                          borderRadius: '8px',
-                        }}
-                      >
-                        <p
-                          style={{
-                            margin: 0,
-                            fontWeight: 600,
-                            marginBottom: '0.25rem',
-                          }}
-                        >
-                          SkillFindr 2:23PM
-                        </p>
-                        <p style={{ margin: 0 }}>
-                          New generative AI capabilities! We are excited to
-                          introduce new features that use SkillFindr to enhance
-                          and deliver richer, context-aware interactions.
-                        </p>
-                      </div>
+                          marginBottom: '0.25rem',
+                        }}>
+                        SkillFindr 2:23PM
+                      </p>
+                      <p style={{ margin: 0 }}>
+                        New generative AI capabilities! We are excited to
+                        introduce new features that use SkillFindr to enhance
+                        and deliver richer, context-aware interactions.
+                      </p>
                     </div>
+                  </div>
+                  <div
+                    style={{
+                      marginBottom: '1rem',
+                      textAlign: 'right',
+                    }}>
                     <div
                       style={{
-                        marginBottom: '1rem',
-                        textAlign: 'right',
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: 'inline-block',
-                          padding: '0.5rem 1rem',
-                          backgroundColor: '#0f62fe',
-                          color: '#ffffff',
-                          borderRadius: '8px',
-                        }}
-                      >
-                        <p style={{ margin: 0 }}>What's new?</p>
-                      </div>
+                        display: 'inline-block',
+                        padding: '0.5rem 1rem',
+                        backgroundColor: '#0f62fe',
+                        color: '#ffffff',
+                      }}>
+                      <p style={{ margin: 0 }}>What's new?</p>
                     </div>
                   </div>
                 </Column>
@@ -189,9 +160,8 @@ const ChatbotPopup = () => {
                   margin: 0,
                   padding: 0,
                   marginTop: 'auto',
-                }}
-              >
-                <Column>
+                }}>
+                <Column style={{ margin: 0, padding: 0 }}>
                   <Grid
                     condensed
                     style={{
@@ -200,13 +170,13 @@ const ChatbotPopup = () => {
                       margin: 0,
                       display: 'flex',
                       alignItems: 'center',
-                    }}
-                  >
+                    }}>
                     <Column
                       style={{
                         flex: 1,
-                      }}
-                    >
+                        margin: 0,
+                        padding: 0,
+                      }}>
                       <TextInput
                         id="chat-input"
                         size="lg"
@@ -216,8 +186,9 @@ const ChatbotPopup = () => {
                     <Column
                       style={{
                         flex: '0 0 auto',
-                      }}
-                    >
+                        margin: 0,
+                        padding: 0,
+                      }}>
                       <IconButton
                         renderIcon={ArrowRight}
                         label="Send"

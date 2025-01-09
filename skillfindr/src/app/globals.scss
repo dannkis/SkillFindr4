@@ -1,6 +1,8 @@
 @use '@carbon/react' with (
   $use-flexbox-grid: true
 );
+@use '@carbon/colors';
+
 @use '@carbon/react/scss/breakpoint' as *;
 
 @use '@/components/TutorialHeader/tutorial-header';
@@ -35,9 +37,17 @@
   }
 }
 
+svg.white {
+  fill: white;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
+}
+
+.bg-primary {
+  background: colors.$blue-60;
 }
