@@ -10,6 +10,7 @@ import {
   FlexGrid,
 } from '@carbon/react';
 import { ChatLaunch, ArrowRight, Chat } from '@carbon/icons-react';
+import UserResponse from '@/components/UserResponse/UserResponse';
 
 const ChatbotPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -209,32 +210,7 @@ const ChatbotPopup = () => {
                 </Column>
               </Row>
               {/*example user responce*/}
-              <Row
-                condensed
-                style={{
-                  margin: 0,
-                  padding: '0 1rem',
-                }}>
-                <Column style={{ margin: 0, padding: 0 }}>
-                  <div
-                    style={{
-                      textAlign: 'right',
-                      display: 'flex',
-                      justifyContent: 'end',
-                    }}>
-                    <div
-                      style={{
-                        padding: '0.5rem 1rem',
-                        backgroundColor: '#0f62fe',
-                        color: '#ffffff',
-                      }}>
-                      <p style={{ margin: 0 }}>
-                        What new features do you have right now?
-                      </p>
-                    </div>
-                  </div>
-                </Column>
-              </Row>
+              <UserResponse user_response="Testing" />
               {/*example chatbot responce*/}
               <Row
                 condensed
