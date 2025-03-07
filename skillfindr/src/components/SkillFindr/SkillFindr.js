@@ -253,7 +253,7 @@ const ChatbotPopup = () => {
                 </Column>
               </Row>
               {/*example user responce*/}
-              <UserResponse user_response="Testing 2" />
+              <UserResponse user_response="More Testing" />
             </Column>
 
             {/*user input*/}
