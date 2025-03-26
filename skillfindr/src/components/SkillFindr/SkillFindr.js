@@ -11,10 +11,16 @@ import {
 } from '@carbon/react';
 import { ChatLaunch, ArrowRight, Chat } from '@carbon/icons-react';
 import UserResponse from '@/components/UserResponse/UserResponse';
+import ChatResponse from '@/components/ChatResponse/ChatResponse';
 
 const ChatbotPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setMounted] = useState(false);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState([
+    { role: 'assistant', content: 'Hello! How can I help you today?' },
+  ]);
 
   useEffect(() => {
     setMounted(true);
@@ -22,6 +28,29 @@ const ChatbotPopup = () => {
   }, []);
 
   if (!isMounted) return null;
+
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+
+    const newMessages = [...messages, { role: 'user', content: input }];
+    setMessages(newMessages);
+    setInput('');
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: newMessages }),
+      });
+      const data = await response.json();
+      setMessages([...newMessages, { role: 'assistant', content: data.reply }]);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return ReactDOM.createPortal(
     <FlexGrid condensed>
@@ -100,163 +129,19 @@ const ChatbotPopup = () => {
               </Column>
             </Row>
 
-            <Column style={{ overflow: 'auto' }}>
-              {/*example chatbot responce*/}
-              <Row
-                condensed
-                style={{
-                  margin: 0,
-                  padding: '1rem',
-                }}>
-                <Column style={{ margin: 0, padding: 0 }}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                    }}>
-                    <span className="bg-primary">
-                      <Chat
-                        size={25}
-                        style={{ margin: '0.5rem' }}
-                        className="white"
-                      />
-                    </span>
-                    <div
-                      style={{
-                        marginLeft: '0.75rem',
-                        padding: '0.5rem 1rem',
-                        backgroundColor: '#e0e0e0',
-                      }}>
-                      <p
-                        style={{
-                          margin: 0,
-                          fontWeight: 600,
-                          marginBottom: '0.25rem',
-                        }}>
-                        SkillFindr 2:23PM
-                      </p>
-                      <p style={{ margin: 0 }}>
-                        New generative AI capabilities! We are excited to
-                        introduce new features that use SkillFindr to enhance
-                        and deliver richer, context-aware interactions.
-                      </p>
-                    </div>
-                  </div>
-                </Column>
-              </Row>
-
-              {/*example user responce*/}
-              <Row
-                condensed
-                style={{
-                  margin: 0,
-                  padding: '0 1rem',
-                }}>
-                <Column style={{ margin: 0, padding: 0 }}>
-                  <div
-                    style={{
-                      textAlign: 'right',
-                      display: 'flex',
-                      justifyContent: 'end',
-                    }}>
-                    <div
-                      style={{
-                        padding: '0.5rem 1rem',
-                        backgroundColor: '#0f62fe',
-                        color: '#ffffff',
-                      }}>
-                      <p style={{ margin: 0 }}>What's new?</p>
-                    </div>
-                  </div>
-                </Column>
-              </Row>
-              {/*example chatbot responce*/}
-              <Row
-                condensed
-                style={{
-                  margin: 0,
-                  padding: '1rem',
-                }}>
-                <Column style={{ margin: 0, padding: 0 }}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                    }}>
-                    <span className="bg-primary">
-                      <Chat
-                        size={25}
-                        style={{ margin: '0.5rem' }}
-                        className="white"
-                      />
-                    </span>
-                    <div
-                      style={{
-                        marginLeft: '0.75rem',
-                        padding: '0.5rem 1rem',
-                        backgroundColor: '#e0e0e0',
-                      }}>
-                      <p
-                        style={{
-                          margin: 0,
-                          fontWeight: 600,
-                          marginBottom: '0.25rem',
-                        }}>
-                        SkillFindr 2:24PM
-                      </p>
-                      <p style={{ margin: 0 }}>Nothing new I am afraid.</p>
-                    </div>
-                  </div>
-                </Column>
-              </Row>
-              {/*example user responce*/}
-              <UserResponse user_response="Testing" />
-              {/*example chatbot responce*/}
-              <Row
-                condensed
-                style={{
-                  margin: 0,
-                  padding: '1rem',
-                }}>
-                <Column style={{ margin: 0, padding: 0 }}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                    }}>
-                    <span className="bg-primary">
-                      <Chat
-                        size={25}
-                        style={{ margin: '0.5rem' }}
-                        className="white"
-                      />
-                    </span>
-                    <div
-                      style={{
-                        marginLeft: '0.75rem',
-                        padding: '0.5rem 1rem',
-                        backgroundColor: '#e0e0e0',
-                      }}>
-                      <p
-                        style={{
-                          margin: 0,
-                          fontWeight: 600,
-                          marginBottom: '0.25rem',
-                        }}>
-                        SkillFindr 2:24PM
-                      </p>
-                      <p style={{ margin: 0 }}>
-                        There is nothing new, thanks for asking!
-                      </p>
-                    </div>
-                  </div>
-                </Column>
-              </Row>
-              {/*example user responce*/}
-              <UserResponse user_response="More Testing" />
+            {/* Chat history */}
+            <Column style={{ overflow: 'auto', padding: '1rem', flex: 1 }}>
+              {messages.map((msg, i) =>
+                msg.role === 'user' ? (
+                  <UserResponse key={i} user_response={msg.content} />
+                ) : (
+                  <ChatResponse key={i} chat_response={msg.content} />
+                )
+              )}
+              {loading && <ChatResponse chat_response="Thinking..."/>}
             </Column>
 
-            {/*user input*/}
+            {/* user input */}
             <Row
               condensed
               style={{
@@ -284,6 +169,11 @@ const ChatbotPopup = () => {
                       id="chat-input"
                       size="lg"
                       placeholder="Type your message..."
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') sendMessage();
+                      }}
                     />
                   </Column>
                   <Column
@@ -295,7 +185,7 @@ const ChatbotPopup = () => {
                     <IconButton
                       renderIcon={ArrowRight}
                       label="Send"
-                      onClick={() => console.log('Message sent')}
+                      onClick={sendMessage}
                     />
                   </Column>
                 </Grid>

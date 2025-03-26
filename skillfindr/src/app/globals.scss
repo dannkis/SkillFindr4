@@ -1,6 +1,7 @@
 @use '@carbon/react' with (
   $use-flexbox-grid: true
 );
+
 @use '@carbon/colors';
 
 @use '@carbon/react/scss/breakpoint' as *;
@@ -50,4 +51,8 @@ body {
 
 .bg-primary {
   background: colors.$blue-60;
+}
+
+li {
+  margin-bottom: 0.5rem;
 }
