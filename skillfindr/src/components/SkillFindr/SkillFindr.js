@@ -44,7 +44,10 @@ const ChatbotPopup = () => {
         body: JSON.stringify({ messages: newMessages }),
       });
       const data = await response.json();
-      setMessages([...newMessages, { role: 'assistant', content: data.reply }]);
+      setMessages([
+        ...newMessages,
+        { role: 'assistant', content: data.reply, animated: false },
+      ]);
     } catch (err) {
       console.error(err);
     } finally {
@@ -90,26 +93,30 @@ const ChatbotPopup = () => {
               flexDirection: 'column',
               margin: 0,
               padding: 0,
-            }}>
+            }}
+          >
             {/*box header*/}
             <Row
               style={{
                 margin: 0,
                 padding: 0,
-              }}>
+              }}
+            >
               <Column
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   padding: '1rem 1rem',
                   backgroundColor: '#f4f4f4',
-                }}>
+                }}
+              >
                 <span>
                   <h6>Powered by AI</h6>
                   <h4
                     style={{
                       margin: 0,
-                    }}>
+                    }}
+                  >
                     SkillFindr
                   </h4>
                 </span>
@@ -123,7 +130,8 @@ const ChatbotPopup = () => {
                     fontWeight: 'bold',
                     padding: '0 1rem',
                     alignItems: 'center',
-                  }}>
+                  }}
+                >
                   ✕
                 </Button>
               </Column>
@@ -135,10 +143,22 @@ const ChatbotPopup = () => {
                 msg.role === 'user' ? (
                   <UserResponse key={i} user_response={msg.content} />
                 ) : (
-                  <ChatResponse key={i} chat_response={msg.content} />
+                  <ChatResponse
+                    key={i}
+                    chat_response={msg.content}
+                    animate={!msg.animated}
+                    onAnimationComplete={() => {
+                      // mark message as animated after animation finishes
+                      setMessages((prev) =>
+                        prev.map((m, idx) =>
+                          idx === i ? { ...m, animated: true } : m
+                        )
+                      );
+                    }}
+                  />
                 )
               )}
-              {loading && <ChatResponse chat_response="Thinking..."/>}
+              {loading && <ChatResponse chat_response="Thinking..." />}
             </Column>
 
             {/* user input */}
@@ -148,7 +168,8 @@ const ChatbotPopup = () => {
                 margin: 0,
                 padding: 0,
                 marginTop: 'auto',
-              }}>
+              }}
+            >
               <Column style={{ margin: 0, padding: 0 }}>
                 <Grid
                   condensed
@@ -158,13 +179,15 @@ const ChatbotPopup = () => {
                     margin: 0,
                     display: 'flex',
                     alignItems: 'center',
-                  }}>
+                  }}
+                >
                   <Column
                     style={{
                       flex: 1,
                       margin: 0,
                       padding: 0,
-                    }}>
+                    }}
+                  >
                     <TextInput
                       id="chat-input"
                       size="lg"
@@ -181,7 +204,8 @@ const ChatbotPopup = () => {
                       flex: '0 0 auto',
                       margin: 0,
                       padding: 0,
-                    }}>
+                    }}
+                  >
                     <IconButton
                       renderIcon={ArrowRight}
                       label="Send"
