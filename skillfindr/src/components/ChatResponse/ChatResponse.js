@@ -59,10 +59,16 @@ const formatText = (text) => {
   return html;
 };
 
-const ChatResponse = ({ chat_response }) => {
+const ChatResponse = ({
+  chat_response,
+  animate = false,
+  onAnimationComplete,
+}) => {
   const [isMounted, setMounted] = useState(false);
   const [time, setTime] = useState('');
-  const [displayedText, setDisplayedText] = useState('');
+  const [displayedText, setDisplayedText] = useState(
+    animate ? '' : chat_response
+  );
 
   useEffect(() => {
     setMounted(true);
@@ -77,14 +83,17 @@ const ChatResponse = ({ chat_response }) => {
   }, []);
 
   useEffect(() => {
-    if (!chat_response) return;
+    if (!chat_response || !animate) return;
 
     let index = 0;
     setDisplayedText('');
     const interval = setInterval(() => {
       index++;
       setDisplayedText(chat_response.slice(0, index));
-      if (index >= chat_response.length) clearInterval(interval);
+      if (index >= chat_response.length) {
+        clearInterval(interval);
+        onAnimationComplete?.();
+      }
     }, 15);
 
     return () => clearInterval(interval);
@@ -104,7 +113,8 @@ const ChatResponse = ({ chat_response }) => {
               marginLeft: '0.75rem',
               padding: '0.5rem 1rem',
               backgroundColor: '#e0e0e0',
-            }}>
+            }}
+          >
             <p style={{ margin: 0, fontWeight: 600, marginBottom: '0.25rem' }}>
               SkillFindr {time}
             </p>

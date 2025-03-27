@@ -28,7 +28,7 @@ export default function LandingPage() {
         <Column lg={16} md={8} sm={4} className="landing-page__banner">
           <Breadcrumb noTrailingSlash aria-label="Page navigation">
             <BreadcrumbItem>
-              <a href="/">Getting started</a>
+              <a href="/">SkillFindr Showcase</a>
             </BreadcrumbItem>
           </Breadcrumb>
           <h1 className="landing-page__heading">
@@ -49,7 +49,8 @@ export default function LandingPage() {
                     md={4}
                     lg={7}
                     sm={4}
-                    className="landing-page__tab-content">
+                    className="landing-page__tab-content"
+                  >
                     <h3 className="landing-page__subheading">
                       What is Carbon?
                     </h3>
@@ -79,7 +80,8 @@ export default function LandingPage() {
                     lg={16}
                     md={8}
                     sm={4}
-                    className="landing-page__tab-content">
+                    className="landing-page__tab-content"
+                  >
                     <p className="landing-page__p">
                       Rapidly build beautiful and accessible experiences. The
                       Carbon kit contains all resources you need to get started.
@@ -93,7 +95,8 @@ export default function LandingPage() {
                     lg={16}
                     md={8}
                     sm={4}
-                    className="landing-page__tab-content">
+                    className="landing-page__tab-content"
+                  >
                     <p className="landing-page__p">
                       Carbon provides styles and components in Vanilla, React,
                       Next, Angular, and Vue for anyone building on the web.
