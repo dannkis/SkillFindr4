@@ -59,7 +59,7 @@ const ChatbotPopup = () => {
     <FlexGrid condensed>
       <Column>
         {!isOpen && (
-          //button for skillfindr
+          //button for skillfindr chatbot
           <IconButton
             renderIcon={ChatLaunch}
             label=""
@@ -93,30 +93,26 @@ const ChatbotPopup = () => {
               flexDirection: 'column',
               margin: 0,
               padding: 0,
-            }}
-          >
+            }}>
             {/*box header*/}
             <Row
               style={{
                 margin: 0,
                 padding: 0,
-              }}
-            >
+              }}>
               <Column
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   padding: '1rem 1rem',
                   backgroundColor: '#f4f4f4',
-                }}
-              >
+                }}>
                 <span>
                   <h6>Powered by AI</h6>
                   <h4
                     style={{
                       margin: 0,
-                    }}
-                  >
+                    }}>
                     SkillFindr
                   </h4>
                 </span>
@@ -130,8 +126,7 @@ const ChatbotPopup = () => {
                     fontWeight: 'bold',
                     padding: '0 1rem',
                     alignItems: 'center',
-                  }}
-                >
+                  }}>
                   ✕
                 </Button>
               </Column>
@@ -168,8 +163,7 @@ const ChatbotPopup = () => {
                 margin: 0,
                 padding: 0,
                 marginTop: 'auto',
-              }}
-            >
+              }}>
               <Column style={{ margin: 0, padding: 0 }}>
                 <Grid
                   condensed
@@ -179,15 +173,13 @@ const ChatbotPopup = () => {
                     margin: 0,
                     display: 'flex',
                     alignItems: 'center',
-                  }}
-                >
+                  }}>
                   <Column
                     style={{
                       flex: 1,
                       margin: 0,
                       padding: 0,
-                    }}
-                  >
+                    }}>
                     <TextInput
                       id="chat-input"
                       size="lg"
@@ -204,8 +196,7 @@ const ChatbotPopup = () => {
                       flex: '0 0 auto',
                       margin: 0,
                       padding: 0,
-                    }}
-                  >
+                    }}>
                     <IconButton
                       renderIcon={ArrowRight}
                       label="Send"
