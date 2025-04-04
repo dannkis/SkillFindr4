@@ -59,7 +59,7 @@ const ChatbotPopup = () => {
     <FlexGrid condensed>
       <Column>
         {!isOpen && (
-          //button for skillfindr chatbot
+          //button for skillfinr chatbot
           <IconButton
             renderIcon={ChatLaunch}
             label=""
