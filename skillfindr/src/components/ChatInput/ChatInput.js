@@ -25,6 +25,7 @@ const ChatInput = ({
           size="lg"
           placeholder="Type your message..."
           value={input}
+          labelText=""
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') sendMessage();
@@ -34,15 +35,17 @@ const ChatInput = ({
       <Column style={{ flex: '0 0 auto', margin: 0, padding: 0 }}>
         <IconButton
           renderIcon={ArrowRight}
+          iconDescription="Send Arrow Icon"
           label="Send"
           onClick={sendMessage}
         />
         <IconButton
           renderIcon={Microphone}
+          iconDescription="Microphone Icon"
           label="Voice Input"
           onClick={startVoiceRecognition}
           style={{ marginLeft: '0.5rem' }}
-          kind={isRecording ? 'danger' : 'primary'}
+          kind={isRecording ? 'primary' : 'secondary'}
         />
       </Column>
     </Grid>

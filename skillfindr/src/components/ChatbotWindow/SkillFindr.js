@@ -1,29 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import {
-  IconButton,
-  Button,
-  TextInput,
-  Grid,
-  Row,
-  Column,
-  FlexGrid,
-  cx,
-} from '@carbon/react';
-import { ArrowRight, Microphone, Bot } from '@carbon/icons-react';
+import { IconButton, Button, Row, Column, FlexGrid } from '@carbon/react';
+import { Bot } from '@carbon/icons-react';
 import UserResponse from '@/components/Responses/User/UserResponse';
 import ChatResponse from '@/components/Responses/Chat/ChatResponse';
 import SuggestionTags from '../SuggestionTags/SuggestionTags';
 import ChatInput from '../ChatInput/ChatInput';
 
-const ChatbotPopup = () => {
+const SkillFindr = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setMounted] = useState(false);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Hello! How can I help you today?' },
+    {
+      role: 'assistant',
+      content: 'Hello! I am SkillFindr! How can I help you today?',
+    },
   ]);
 
   const startVoiceRecognition = () => {
@@ -117,7 +111,7 @@ const ChatbotPopup = () => {
           <IconButton
             renderIcon={Bot}
             label=""
-            iconDescription=""
+            iconDescription="Robot Icon"
             hasIconOnly
             onClick={() => setIsOpen(true)}
             style={{
@@ -173,7 +167,7 @@ const ChatbotPopup = () => {
 
                 <Button
                   kind="ghost"
-                  size="small"
+                  size="sm"
                   onClick={() => setIsOpen(false)}
                   style={{
                     fontSize: '1rem',
@@ -246,4 +240,4 @@ const ChatbotPopup = () => {
   );
 };
 
-export default ChatbotPopup;
+export default SkillFindr;
