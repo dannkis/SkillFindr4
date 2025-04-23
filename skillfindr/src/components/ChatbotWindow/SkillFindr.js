@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { IconButton, Button, Row, Column, FlexGrid } from '@carbon/react';
 import { Bot } from '@carbon/icons-react';
-import UserResponse from '@/components/Responses/User/UserResponse';
-import ChatResponse from '@/components/Responses/Chat/ChatResponse';
+import UserResponse from '@/components/Responses/UserResponse';
+import ChatResponse from '@/components/Responses/ChatResponse';
 import SuggestionTags from '../SuggestionTags/SuggestionTags';
 import ChatInput from '../ChatInput/ChatInput';
 

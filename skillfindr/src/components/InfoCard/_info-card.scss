@@ -24,10 +24,9 @@
   }
 
   div {
-    flex-grow: 1; // fill space so icons are bottom aligned
+    flex-grow: 1;
   }
 
-  // top border in only small breakpoints to prevent overrides
   @include breakpoint-down(lg) {
     padding-left: 0;
     margin-top: 0;
@@ -77,10 +76,9 @@
 
 .info-card__body {
   margin-top: $spacing-06;
-  flex-grow: 1; // fill space so icons are bottom aligned
+  flex-grow: 1;
   @include type-style('body-long-01');
 
-  // prevent large line lengths between small and medium viewports
   @include breakpoint-between(321px, md) {
     max-width: 75%;
   }

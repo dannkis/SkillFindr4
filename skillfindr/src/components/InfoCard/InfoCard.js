@@ -1,6 +1,5 @@
 import { Grid, Column } from '@carbon/react';
 
-// Take in a phrase and separate the third word in an array
 function createArrayFromPhrase(phrase) {
   const splitPhrase = phrase.split(' ');
   const thirdWord = splitPhrase.pop();
