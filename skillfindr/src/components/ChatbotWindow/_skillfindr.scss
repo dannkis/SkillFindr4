@@ -1,0 +1,74 @@
+/* chatbot toggle button */
+.skillfindr__toggle-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  justify-content: center;
+}
+
+/* chatbot container */
+.skillfindr__container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 500px;
+  height: 650px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  z-index: 1000;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+/* header row */
+.skillfindr__header-row {
+  margin: 0;
+  padding: 0;
+}
+
+/* header content */
+.skillfindr__header-column {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem;
+  background-color: #f4f4f4;
+}
+
+/* header title content wrapper */
+.skillfindr__title-wrapper {
+  padding: 1rem;
+}
+
+/* close button */
+.skillfindr__close-button {
+  font-size: 1.2rem;
+  margin: 0rem 1rem;
+  padding: 0.6rem 1rem;
+  font-weight: bold;
+  align-items: center;
+}
+
+/* chat history */
+.skillfindr__chat-column {
+  overflow: auto;
+  padding: 1rem;
+  flex: 1;
+}
+
+/* input row */
+.skillfindr__input-row {
+  margin: 0;
+  padding: 0;
+  margin-top: auto;
+}
+
+/* input column */
+.skillfindr__input-column {
+  margin: 0;
+  padding: 0;
+}

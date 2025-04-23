@@ -1,15 +1,22 @@
+// imports react hooks and carbon components
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { IconButton, Button, Row, Column, FlexGrid } from '@carbon/react';
 import { Bot } from '@carbon/icons-react';
+
+// imports custom components for chat
 import UserResponse from '@/components/Responses/UserResponse';
 import ChatResponse from '@/components/Responses/ChatResponse';
 import SuggestionTags from '../SuggestionTags/SuggestionTags';
 import ChatInput from '../ChatInput/ChatInput';
 
+// imports styling
+import './_skillfindr.scss';
+
 const SkillFindr = () => {
+  // sets up state variables
   const [isOpen, setIsOpen] = useState(false);
-  const [isMounted, setMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
@@ -20,6 +27,7 @@ const SkillFindr = () => {
     },
   ]);
 
+  // handles voice input using web speech API
   const startVoiceRecognition = () => {
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -42,34 +50,35 @@ const SkillFindr = () => {
       setIsRecording(false);
     };
 
-    recognition.onerror = () => {
-      setIsRecording(false);
-    };
-
-    recognition.onend = () => {
-      setIsRecording(false);
-    };
+    recognition.onerror = () => setIsRecording(false);
+    recognition.onend = () => setIsRecording(false);
   };
 
+  // sets component as mounted on first render
   useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
+    setIsMounted(true);
+    return () => setIsMounted(false);
   }, []);
 
+  // prevent rendering if not mounted
   if (!isMounted) return null;
 
+  // sends user message to backend and updates chat history
   const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const newMessages = [...messages, { role: 'user', content: input }];
+    const userMessage = { role: 'user', content: input };
+    const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setInput('');
     setLoading(true);
 
+    const headers = { 'Content-Type': 'application/json' };
+
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ messages: newMessages }),
       });
 
@@ -77,7 +86,7 @@ const SkillFindr = () => {
 
       const suggestionRes = await fetch('/api/suggestions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({
           messages: [
             ...newMessages,
@@ -85,6 +94,7 @@ const SkillFindr = () => {
           ],
         }),
       });
+
       const suggestionData = await suggestionRes.json();
 
       setMessages([
@@ -103,85 +113,43 @@ const SkillFindr = () => {
     }
   };
 
+  // renders chatbot UI via portal
   return ReactDOM.createPortal(
     <FlexGrid condensed>
       <Column>
         {!isOpen && (
-          //button for the skillfindr chatbot
+          // button for opening the chatbot
           <IconButton
             renderIcon={Bot}
             label=""
             iconDescription="Robot Icon"
             hasIconOnly
             onClick={() => setIsOpen(true)}
-            style={{
-              position: 'fixed',
-              bottom: '2rem',
-              right: '2rem',
-              zIndex: 1000,
-              justifyContent: 'center',
-            }}
+            className="skillfindr__toggle-button"
           />
         )}
         {isOpen && (
-          //chatbot box
-          <FlexGrid
-            condensed
-            style={{
-              position: 'fixed',
-              bottom: '2rem',
-              right: '2rem',
-              width: '500px',
-              height: '650px',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-              backgroundColor: '#ffffff',
-              zIndex: 1000,
-              border: '1px solid #e0e0e0',
-              display: 'flex',
-              flexDirection: 'column',
-              margin: 0,
-              padding: 0,
-            }}>
-            {/*box header*/}
-            <Row
-              style={{
-                margin: 0,
-                padding: 0,
-              }}>
-              <Column
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  padding: '1rem 1rem',
-                  backgroundColor: '#f4f4f4',
-                }}>
-                <span>
+          // chatbot container
+          <FlexGrid condensed className="skillfindr__container">
+            {/* chat header */}
+            <Row className="skillfindr__header-row">
+              <Column className="skillfindr__header-column">
+                <span className="skillfindr__title-wrapper">
                   <h6>Powered by AI</h6>
-                  <h4
-                    style={{
-                      margin: 0,
-                    }}>
-                    SkillFindr
-                  </h4>
+                  <h4>SkillFindr</h4>
                 </span>
-
                 <Button
                   kind="ghost"
                   size="sm"
                   onClick={() => setIsOpen(false)}
-                  style={{
-                    fontSize: '1rem',
-                    fontWeight: 'bold',
-                    padding: '0 1rem',
-                    alignItems: 'center',
-                  }}>
+                  className="skillfindr__close-button">
                   ✕
                 </Button>
               </Column>
             </Row>
 
-            {/* Chat history */}
-            <Column style={{ overflow: 'auto', padding: '1rem', flex: 1 }}>
+            {/* chat messages */}
+            <Column className="skillfindr__chat-column">
               {messages.map((msg, i) =>
                 msg.role === 'user' ? (
                   <UserResponse key={i} user_response={msg.content} />
@@ -214,15 +182,10 @@ const SkillFindr = () => {
               )}
               {loading && <ChatResponse chat_response="Thinking..." />}
             </Column>
-            {/* user input */}
-            <Row
-              condensed
-              style={{
-                margin: 0,
-                padding: 0,
-                marginTop: 'auto',
-              }}>
-              <Column style={{ margin: 0, padding: 0 }}>
+
+            {/* chat input box */}
+            <Row condensed className="skillfindr__input-row">
+              <Column className="skillfindr__input-column">
                 <ChatInput
                   input={input}
                   setInput={setInput}
