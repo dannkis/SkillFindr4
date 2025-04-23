@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Column } from '@carbon/react';
 import { Bot } from '@carbon/icons-react';
+import './_chat-response.scss';
 
+// safely escape and format chat text to HTML
 const formatText = (text) => {
   if (!text) return '';
 
@@ -39,11 +41,7 @@ const formatText = (text) => {
         html += '</ul>';
         inUl = false;
       }
-      if (trimmed) {
-        html += `<p>${trimmed}</p>`;
-      } else {
-        html += '<br />';
-      }
+      html += trimmed ? `<p>${trimmed}</p>` : '<br />';
     }
   }
 
@@ -73,12 +71,12 @@ const ChatResponse = ({
   useEffect(() => {
     setMounted(true);
     const now = new Date();
-    const formatted = now.toLocaleTimeString([], {
+    const formattedTime = now.toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
       hour12: false,
     });
-    setTime(formatted);
+    setTime(formattedTime);
     return () => setMounted(false);
   }, []);
 
@@ -97,26 +95,19 @@ const ChatResponse = ({
     }, 15);
 
     return () => clearInterval(interval);
-  }, [chat_response]);
+  }, [chat_response, animate, onAnimationComplete]);
 
   if (!isMounted) return null;
 
   return (
-    <Row condensed style={{ margin: 0, padding: '1rem' }}>
-      <Column style={{ margin: 0, padding: 0 }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-          <span className="bg-primary">
-            <Bot size={25} style={{ margin: '0.5rem' }} className="white" />
+    <Row condensed className="chat-response-row">
+      <Column className="chat-response-column">
+        <div className="chat-response-container">
+          <span className="icon-container">
+            <Bot size={25} className="bot-icon" />
           </span>
-          <div
-            style={{
-              marginLeft: '0.75rem',
-              padding: '0.5rem 1rem',
-              backgroundColor: '#e0e0e0',
-            }}>
-            <p style={{ margin: 0, fontWeight: 600, marginBottom: '0.25rem' }}>
-              SkillFindr {time}
-            </p>
+          <div className="message-container">
+            <p className="message-header">SkillFindr {time}</p>
             <div
               dangerouslySetInnerHTML={{
                 __html: formatText(displayedText),

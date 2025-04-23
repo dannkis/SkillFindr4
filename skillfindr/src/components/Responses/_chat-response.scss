@@ -1,0 +1,63 @@
+/* chat response row layout */
+.chat-response-row {
+  margin: 0;
+  padding: 1rem;
+}
+
+/* chat response column layout */
+.chat-response-column {
+  margin: 0;
+  padding: 0;
+}
+
+/* container with flex layout for aligning chat elements */
+.chat-response-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* the icon container (bot icon) */
+.icon-container {
+  background-color: var(--cds-button-primary, #0f62fe);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+
+  /* bot icon within the icon container */
+  .bot-icon {
+    margin: 0.5rem;
+    color: #ffffff;
+  }
+}
+
+/* the chat message container */
+.message-container {
+  background-color: #e0e0e0;
+  padding: 0.5rem 1rem;
+
+  /* message header */
+  .message-header {
+    margin: 0;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  /* paragraph styling within the message container */
+  p {
+    margin: 0.25rem 0;
+  }
+
+  /* list styling within the message container */
+  ul,
+  ol {
+    margin: 0.5rem 0 0.5rem 1.25rem;
+  }
+
+  /* inline code styling */
+  code {
+    background-color: #dcdcdc;
+    padding: 0.1rem 0.25rem;
+    font-family: monospace;
+  }
+}

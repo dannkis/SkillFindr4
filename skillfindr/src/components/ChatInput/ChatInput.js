@@ -30,18 +30,18 @@ const ChatInput = ({
       {/* icon buttons column */}
       <Column className="chat-input__buttons">
         <IconButton
-          renderIcon={ArrowRight}
-          iconDescription="send arrow icon"
-          label="send"
-          onClick={sendMessage}
-        />
-        <IconButton
           renderIcon={Microphone}
           iconDescription="microphone icon"
           label="voice input"
           onClick={startVoiceRecognition}
           className="chat-input__microphone-button"
           kind={isRecording ? 'primary' : 'secondary'}
+        />
+        <IconButton
+          renderIcon={ArrowRight}
+          iconDescription="send arrow icon"
+          label="send"
+          onClick={sendMessage}
         />
       </Column>
     </Grid>
