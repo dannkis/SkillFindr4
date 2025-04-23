@@ -1,37 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Column } from '@carbon/react';
 
+// import external styles
+import './_user-response.scss';
+
 const UserResponse = ({ user_response }) => {
   const [isMounted, setMounted] = useState(false);
 
+  // handle component mount and unmount for rendering purposes
   useEffect(() => {
     setMounted(true);
     return () => setMounted(false);
   }, []);
 
+  // avoid rendering until mounted
   if (!isMounted) return null;
 
   return (
-    <Row
-      condensed
-      style={{
-        margin: 0,
-        padding: '0 1rem',
-      }}>
-      <Column style={{ margin: 0, padding: 0 }}>
-        <div
-          style={{
-            textAlign: 'right',
-            display: 'flex',
-            justifyContent: 'end',
-          }}>
-          <div
-            style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: '#0f62fe',
-              color: '#ffffff',
-            }}>
-            <p style={{ margin: 0 }}>{user_response}</p>
+    <Row condensed className="user-response-row">
+      <Column className="user-response-column">
+        {/* align bubble to the right */}
+        <div className="user-response-wrapper">
+          {/* user message bubble */}
+          <div className="user-response-bubble">
+            <p className="user-response-text">{user_response}</p>
           </div>
         </div>
       </Column>

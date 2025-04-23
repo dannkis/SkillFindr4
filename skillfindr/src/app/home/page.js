@@ -1,5 +1,6 @@
 'use client';
 
+// import carbon components
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,11 +13,15 @@ import {
   Grid,
   Column,
 } from '@carbon/react';
+
+// import icons used for the info cards
 import {
   FaceSatisfied,
   ModelFoundation,
   AccessibilityAlt,
 } from '@carbon/icons-react';
+
+// import custom components
 import { InfoSection, InfoCard } from '@/components/InfoCard/InfoCard';
 import SkillFindr from '@/components/ChatbotWindow/SkillFindr';
 import Image from 'next/image';
@@ -24,7 +29,9 @@ import Image from 'next/image';
 export default function LandingPage() {
   return (
     <>
+      {/* main grid layout for landing page */}
       <Grid className="landing-page" fullWidth>
+        {/* top section with title and breadcrumb */}
         <Column lg={16} md={8} sm={4} className="landing-page__banner">
           <Breadcrumb noTrailingSlash aria-label="Page navigation">
             <BreadcrumbItem>
@@ -33,14 +40,17 @@ export default function LandingPage() {
           </Breadcrumb>
           <h1 className="landing-page__heading">Design &amp; Development</h1>
         </Column>
+
+        {/* middle section with tabs */}
         <Column lg={16} md={8} sm={4} className="landing-page__r2">
           <Tabs defaultSelectedIndex={0}>
             <TabList className="tabs-group" aria-label="Page navigation">
               <Tab>About</Tab>
               <Tab>Design</Tab>
-              <Tab>Develop</Tab>
+              <Tab>Development</Tab>
             </TabList>
             <TabPanels>
+              {/* about tab content */}
               <TabPanel>
                 <Grid className="tabs-group-content">
                   <Column
@@ -53,7 +63,7 @@ export default function LandingPage() {
                     </h3>
                     <p className="landing-page__p">
                       <strong>SkillFindr</strong> is a frontend web application
-                      designed as a chatbot interface for IBMs{' '}
+                      designed as a chatbot interface for IBM's{' '}
                       <strong>SkillsBuild</strong> platform. It serves as a
                       user-friendly assistant to help learners discover relevant
                       online courses more easily. The chatbot leverages{' '}
@@ -61,7 +71,7 @@ export default function LandingPage() {
                       to recommend courses based on user input and preferences.
                       Unlike many existing platforms, SkillFindr focuses on
                       <strong> accessibility, responsiveness</strong>, and{' '}
-                      <strong>IBMs Carbon Design System</strong> to ensure a
+                      <strong>IBM's Carbon Design System</strong> to ensure a
                       modern, consistent, and intuitive experience for users.
                     </p>
                     <Button>Learn more</Button>
@@ -77,6 +87,8 @@ export default function LandingPage() {
                   </Column>
                 </Grid>
               </TabPanel>
+
+              {/* design tab content */}
               <TabPanel>
                 <Grid className="tabs-group-content">
                   <Column
@@ -85,7 +97,7 @@ export default function LandingPage() {
                     sm={4}
                     className="landing-page__tab-content">
                     <p className="landing-page__p">
-                      SkillFindrs design follows IBMs Carbon Design System,
+                      SkillFindr's design follows IBM's Carbon Design System,
                       combining a clean, minimalist aesthetic with intuitive UI
                       components to ensure consistency, brand alignment, and a
                       seamless user experience.
@@ -93,6 +105,8 @@ export default function LandingPage() {
                   </Column>
                 </Grid>
               </TabPanel>
+
+              {/* development tab content */}
               <TabPanel>
                 <Grid className="tabs-group-content">
                   <Column
@@ -110,6 +124,8 @@ export default function LandingPage() {
             </TabPanels>
           </Tabs>
         </Column>
+
+        {/* bottom section with feature highlights */}
         <Column lg={16} md={8} sm={4} className="landing-page__r3">
           <InfoSection heading="The Principles">
             <InfoCard
@@ -119,7 +135,7 @@ export default function LandingPage() {
             />
             <InfoCard
               heading="SkillFindr is Modular"
-              body="SkillFindr's modularity ensures maximum flexibility in execution. It's components are designed to work seamlessly with each other, in whichever combination suits the needs of the user."
+              body="SkillFindr's modularity ensures maximum flexibility in execution. Its components are designed to work seamlessly with each other, in whichever combination suits the needs of the user."
               icon={() => <ModelFoundation size={64} />}
             />
             <InfoCard
@@ -130,6 +146,8 @@ export default function LandingPage() {
           </InfoSection>
         </Column>
       </Grid>
+
+      {/* embedded chatbot component */}
       <SkillFindr />
     </>
   );

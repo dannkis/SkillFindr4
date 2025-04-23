@@ -1,0 +1,30 @@
+/* outer Row component */
+.user-response-row {
+  margin: 0;
+  padding: 0 1rem;
+}
+
+/* Column component */
+.user-response-column {
+  margin: 0;
+  padding: 0;
+}
+
+/* container aligning the bubble to the right */
+.user-response-wrapper {
+  text-align: right;
+  display: flex;
+  justify-content: end;
+}
+
+/* user's message bubble */
+.user-response-bubble {
+  padding: 0.5rem 1rem;
+  background-color: #0f62fe;
+  color: #ffffff;
+}
+
+/* paragraph inside the bubble */
+.user-response-text {
+  margin: 0;
+}

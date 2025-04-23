@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Column } from '@carbon/react';
 import Tag from './Tag';
 
+// rendering a row of clickable suggestion tags if any are provided
 const SuggestionTags = ({ suggestions, onTagClick }) => {
   if (!suggestions?.length) return null;
 
