@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Column } from '@carbon/react';
-import { Chat } from '@carbon/icons-react';
+import { Bot } from '@carbon/icons-react';
 
 const formatText = (text) => {
   if (!text) return '';
@@ -106,15 +106,14 @@ const ChatResponse = ({
       <Column style={{ margin: 0, padding: 0 }}>
         <div style={{ display: 'flex', alignItems: 'flex-start' }}>
           <span className="bg-primary">
-            <Chat size={25} style={{ margin: '0.5rem' }} className="white" />
+            <Bot size={25} style={{ margin: '0.5rem' }} className="white" />
           </span>
           <div
             style={{
               marginLeft: '0.75rem',
               padding: '0.5rem 1rem',
               backgroundColor: '#e0e0e0',
-            }}
-          >
+            }}>
             <p style={{ margin: 0, fontWeight: 600, marginBottom: '0.25rem' }}>
               SkillFindr {time}
             </p>

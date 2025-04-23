@@ -8,19 +8,54 @@ import {
   Row,
   Column,
   FlexGrid,
+  cx,
 } from '@carbon/react';
-import { ChatLaunch, ArrowRight, Chat } from '@carbon/icons-react';
-import UserResponse from '@/components/UserResponse/UserResponse';
-import ChatResponse from '@/components/ChatResponse/ChatResponse';
+import { ArrowRight, Microphone, Bot } from '@carbon/icons-react';
+import UserResponse from '@/components/Responses/User/UserResponse';
+import ChatResponse from '@/components/Responses/Chat/ChatResponse';
+import SuggestionTags from '../SuggestionTags/SuggestionTags';
+import ChatInput from '../ChatInput/ChatInput';
 
 const ChatbotPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setMounted] = useState(false);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Hello! How can I help you today?' },
   ]);
+
+  const startVoiceRecognition = () => {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Speech recognition not supported in this browser.');
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-GB';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.start();
+    setIsRecording(true);
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      setInput(transcript);
+      setIsRecording(false);
+    };
+
+    recognition.onerror = () => {
+      setIsRecording(false);
+    };
+
+    recognition.onend = () => {
+      setIsRecording(false);
+    };
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -43,10 +78,29 @@ const ChatbotPopup = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: newMessages }),
       });
+
       const data = await response.json();
+
+      const suggestionRes = await fetch('/api/suggestions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [
+            ...newMessages,
+            { role: 'assistant', content: data.reply },
+          ],
+        }),
+      });
+      const suggestionData = await suggestionRes.json();
+
       setMessages([
         ...newMessages,
-        { role: 'assistant', content: data.reply, animated: false },
+        {
+          role: 'assistant',
+          content: data.reply,
+          animated: false,
+          suggestions: suggestionData.tags || [],
+        },
       ]);
     } catch (err) {
       console.error(err);
@@ -61,7 +115,7 @@ const ChatbotPopup = () => {
         {!isOpen && (
           //button for the skillfindr chatbot
           <IconButton
-            renderIcon={ChatLaunch}
+            renderIcon={Bot}
             label=""
             iconDescription=""
             hasIconOnly
@@ -84,7 +138,7 @@ const ChatbotPopup = () => {
               bottom: '2rem',
               right: '2rem',
               width: '500px',
-              height: '550px',
+              height: '650px',
               boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
               backgroundColor: '#ffffff',
               zIndex: 1000,
@@ -138,24 +192,34 @@ const ChatbotPopup = () => {
                 msg.role === 'user' ? (
                   <UserResponse key={i} user_response={msg.content} />
                 ) : (
-                  <ChatResponse
-                    key={i}
-                    chat_response={msg.content}
-                    animate={!msg.animated}
-                    onAnimationComplete={() => {
-                      // mark message as animated after animation finishes
-                      setMessages((prev) =>
-                        prev.map((m, idx) =>
-                          idx === i ? { ...m, animated: true } : m
-                        )
-                      );
-                    }}
-                  />
+                  <React.Fragment key={i}>
+                    <ChatResponse
+                      chat_response={msg.content}
+                      animate={!msg.animated}
+                      onAnimationComplete={() => {
+                        setMessages((prev) =>
+                          prev.map((m, idx) =>
+                            idx === i ? { ...m, animated: true } : m
+                          )
+                        );
+                      }}
+                    />
+                    {msg.suggestions?.length > 0 &&
+                      msg.content !== 'Thinking...' &&
+                      msg.animated && (
+                        <SuggestionTags
+                          suggestions={msg.suggestions}
+                          onTagClick={(tag) => {
+                            setInput(tag);
+                            sendMessage();
+                          }}
+                        />
+                      )}
+                  </React.Fragment>
                 )
               )}
               {loading && <ChatResponse chat_response="Thinking..." />}
             </Column>
-
             {/* user input */}
             <Row
               condensed
@@ -165,45 +229,13 @@ const ChatbotPopup = () => {
                 marginTop: 'auto',
               }}>
               <Column style={{ margin: 0, padding: 0 }}>
-                <Grid
-                  condensed
-                  style={{
-                    padding: '1rem',
-                    borderTop: '1px solid #e0e0e0',
-                    margin: 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}>
-                  <Column
-                    style={{
-                      flex: 1,
-                      margin: 0,
-                      padding: 0,
-                    }}>
-                    <TextInput
-                      id="chat-input"
-                      size="lg"
-                      placeholder="Type your message..."
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') sendMessage();
-                      }}
-                    />
-                  </Column>
-                  <Column
-                    style={{
-                      flex: '0 0 auto',
-                      margin: 0,
-                      padding: 0,
-                    }}>
-                    <IconButton
-                      renderIcon={ArrowRight}
-                      label="Send"
-                      onClick={sendMessage}
-                    />
-                  </Column>
-                </Grid>
+                <ChatInput
+                  input={input}
+                  setInput={setInput}
+                  sendMessage={sendMessage}
+                  startVoiceRecognition={startVoiceRecognition}
+                  isRecording={isRecording}
+                />
               </Column>
             </Row>
           </FlexGrid>

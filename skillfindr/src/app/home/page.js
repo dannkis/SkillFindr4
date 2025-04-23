@@ -13,12 +13,12 @@ import {
   Column,
 } from '@carbon/react';
 import {
-  Advocate,
-  Globe,
-  AcceleratingTransformation,
-} from '@carbon/pictograms-react';
-import { InfoSection, InfoCard } from '@/components/Info/Info';
-import SkillFindr from '@/components/SkillFindr/SkillFindr';
+  FaceSatisfied,
+  ModelFoundation,
+  AccessibilityAlt,
+} from '@carbon/icons-react';
+import { InfoSection, InfoCard } from '@/components/InfoCard/InfoCard';
+import SkillFindr from '@/components/ChatbotWindow/SkillFindr';
 import Image from 'next/image';
 
 export default function LandingPage() {
@@ -31,9 +31,7 @@ export default function LandingPage() {
               <a href="/">SkillFindr Showcase</a>
             </BreadcrumbItem>
           </Breadcrumb>
-          <h1 className="landing-page__heading">
-            Design &amp; build with Carbon
-          </h1>
+          <h1 className="landing-page__heading">Design &amp; Development</h1>
         </Column>
         <Column lg={16} md={8} sm={4} className="landing-page__r2">
           <Tabs defaultSelectedIndex={0}>
@@ -49,17 +47,22 @@ export default function LandingPage() {
                     md={4}
                     lg={7}
                     sm={4}
-                    className="landing-page__tab-content"
-                  >
+                    className="landing-page__tab-content">
                     <h3 className="landing-page__subheading">
-                      What is Carbon?
+                      What is SkillFindr?
                     </h3>
                     <p className="landing-page__p">
-                      Carbon is IBM’s open-source design system for digital
-                      products and experiences. With the IBM Design Language as
-                      its foundation, the system consists of working code,
-                      design tools and resources, human interface guidelines,
-                      and a vibrant community of contributors.
+                      <strong>SkillFindr</strong> is a frontend web application
+                      designed as a chatbot interface for IBMs{' '}
+                      <strong>SkillsBuild</strong> platform. It serves as a
+                      user-friendly assistant to help learners discover relevant
+                      online courses more easily. The chatbot leverages{' '}
+                      <strong>Large Language Model (LLM)</strong> capabilities
+                      to recommend courses based on user input and preferences.
+                      Unlike many existing platforms, SkillFindr focuses on
+                      <strong> accessibility, responsiveness</strong>, and{' '}
+                      <strong>IBMs Carbon Design System</strong> to ensure a
+                      modern, consistent, and intuitive experience for users.
                     </p>
                     <Button>Learn more</Button>
                   </Column>
@@ -80,11 +83,12 @@ export default function LandingPage() {
                     lg={16}
                     md={8}
                     sm={4}
-                    className="landing-page__tab-content"
-                  >
+                    className="landing-page__tab-content">
                     <p className="landing-page__p">
-                      Rapidly build beautiful and accessible experiences. The
-                      Carbon kit contains all resources you need to get started.
+                      SkillFindrs design follows IBMs Carbon Design System,
+                      combining a clean, minimalist aesthetic with intuitive UI
+                      components to ensure consistency, brand alignment, and a
+                      seamless user experience.
                     </p>
                   </Column>
                 </Grid>
@@ -95,11 +99,10 @@ export default function LandingPage() {
                     lg={16}
                     md={8}
                     sm={4}
-                    className="landing-page__tab-content"
-                  >
+                    className="landing-page__tab-content">
                     <p className="landing-page__p">
-                      Carbon provides styles and components in Vanilla, React,
-                      Next, Angular, and Vue for anyone building on the web.
+                      SkillFindr is developed in React/Next.js with Carbon
+                      Design System.
                     </p>
                   </Column>
                 </Grid>
@@ -110,19 +113,19 @@ export default function LandingPage() {
         <Column lg={16} md={8} sm={4} className="landing-page__r3">
           <InfoSection heading="The Principles">
             <InfoCard
-              heading="Carbon is Open"
-              body="It's a distributed effort, guided by the principles of the open-source movement. Carbon's users are also it's makers, and everyone is encouraged to contribute."
-              icon={() => <Advocate size={32} />}
+              heading="SkillFindr is User-Friendly"
+              body="SkillFindr is highly user-friendly due to its intuitive interface, clear visual hierarchy, and seamless navigation. By incorporating familiar design patterns and suggestion tags, users can interact with the chatbot effortlessly without needing prior technical knowledge."
+              icon={() => <FaceSatisfied size={64} />}
             />
             <InfoCard
-              heading="Carbon is Modular"
-              body="Carbon's modularity ensures maximum flexibility in execution. It's components are designed to work seamlessly with each other, in whichever combination suits the needs of the user."
-              icon={() => <AcceleratingTransformation size={32} />}
+              heading="SkillFindr is Modular"
+              body="SkillFindr's modularity ensures maximum flexibility in execution. It's components are designed to work seamlessly with each other, in whichever combination suits the needs of the user."
+              icon={() => <ModelFoundation size={64} />}
             />
             <InfoCard
-              heading="Carbon is Consistent"
-              body="Based on the comprehensive IBM Design Language, every element and component of Carbon was designed from the ground up to work elegantly together to ensure consistent, cohesive user experiences."
-              icon={() => <Globe size={32} />}
+              heading="SkillFindr is Accessible"
+              body="SkillFindr is designed with accessibility as a top priority, ensuring full compatibility with screen readers, keyboard navigation, and responsive layouts to provide an inclusive experience across all devices and for all users."
+              icon={() => <AccessibilityAlt size={64} />}
             />
           </InfoSection>
         </Column>
