@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextInput, Grid, Column, IconButton } from '@carbon/react';
 import { ArrowRight, Microphone } from '@carbon/icons-react';
+import './_chat-input.scss';
 
 const ChatInput = ({
   input,
@@ -10,16 +11,9 @@ const ChatInput = ({
   isRecording,
 }) => {
   return (
-    <Grid
-      condensed
-      style={{
-        padding: '1rem',
-        borderTop: '1px solid #e0e0e0',
-        margin: 0,
-        display: 'flex',
-        alignItems: 'center',
-      }}>
-      <Column style={{ flex: 1, margin: 0, padding: 0 }}>
+    <Grid condensed className="chat-input-grid">
+      {/* input field column */}
+      <Column className="chat-input__column">
         <TextInput
           id="chat-input"
           size="lg"
@@ -32,19 +26,21 @@ const ChatInput = ({
           }}
         />
       </Column>
-      <Column style={{ flex: '0 0 auto', margin: 0, padding: 0 }}>
+
+      {/* icon buttons column */}
+      <Column className="chat-input__buttons">
         <IconButton
           renderIcon={ArrowRight}
-          iconDescription="Send Arrow Icon"
-          label="Send"
+          iconDescription="send arrow icon"
+          label="send"
           onClick={sendMessage}
         />
         <IconButton
           renderIcon={Microphone}
-          iconDescription="Microphone Icon"
-          label="Voice Input"
+          iconDescription="microphone icon"
+          label="voice input"
           onClick={startVoiceRecognition}
-          style={{ marginLeft: '0.5rem' }}
+          className="chat-input__microphone-button"
           kind={isRecording ? 'primary' : 'secondary'}
         />
       </Column>
