@@ -61,6 +61,7 @@ const ChatResponse = ({
   chat_response,
   animate = false,
   onAnimationComplete,
+  container,
 }) => {
   const [isMounted, setMounted] = useState(false);
   const [time, setTime] = useState('');
@@ -85,17 +86,24 @@ const ChatResponse = ({
 
     let index = 0;
     setDisplayedText('');
+
     const interval = setInterval(() => {
       index++;
-      setDisplayedText(chat_response.slice(0, index));
+      const newText = chat_response.slice(0, index);
+      setDisplayedText(newText);
+
+      if (container) {
+        container.scrollTop = container.scrollHeight;
+      }
+
       if (index >= chat_response.length) {
         clearInterval(interval);
         onAnimationComplete?.();
       }
-    }, 15);
+    }, 5);
 
     return () => clearInterval(interval);
-  }, [chat_response, animate, onAnimationComplete]);
+  }, [chat_response, animate, onAnimationComplete, container]);
 
   if (!isMounted) return null;
 
