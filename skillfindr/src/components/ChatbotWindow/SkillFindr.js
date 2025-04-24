@@ -15,6 +15,7 @@ import './_skillfindr.scss';
 
 const SkillFindr = () => {
   // sets up state variables
+  const container = document.querySelector('.skillfindr__chat-column');
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [input, setInput] = useState('');
@@ -64,10 +65,10 @@ const SkillFindr = () => {
   if (!isMounted) return null;
 
   // sends user message to backend and updates chat history
-  const sendMessage = async () => {
-    if (!input.trim()) return;
+  const sendMessage = async (msgInput = input) => {
+    if (!msgInput.trim()) return;
 
-    const userMessage = { role: 'user', content: input };
+    const userMessage = { role: 'user', content: msgInput };
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setInput('');
@@ -165,15 +166,19 @@ const SkillFindr = () => {
                           )
                         );
                       }}
+                      container={container}
                     />
                     {msg.suggestions?.length > 0 &&
                       msg.content !== 'Thinking...' &&
                       msg.animated && (
                         <SuggestionTags
+                          className="skillfindr__suggestion-tags"
                           suggestions={msg.suggestions}
                           onTagClick={(tag) => {
-                            setInput(tag);
-                            sendMessage();
+                            if (messages[messages.length - 1].animated) {
+                              setInput(tag);
+                              sendMessage(tag);
+                            }
                           }}
                         />
                       )}
@@ -192,6 +197,7 @@ const SkillFindr = () => {
                   sendMessage={sendMessage}
                   startVoiceRecognition={startVoiceRecognition}
                   isRecording={isRecording}
+                  animated={messages[messages.length - 1].animated}
                 />
               </Column>
             </Row>

@@ -9,6 +9,7 @@ const ChatInput = ({
   sendMessage,
   startVoiceRecognition,
   isRecording,
+  animated,
 }) => {
   return (
     <Grid condensed className="chat-input-grid">
@@ -20,9 +21,11 @@ const ChatInput = ({
           placeholder="Type your message..."
           value={input}
           labelText=""
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            if (animated) setInput(e.target.value);
+          }}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') sendMessage();
+            if (e.key === 'Enter' && animated) sendMessage();
           }}
         />
       </Column>
