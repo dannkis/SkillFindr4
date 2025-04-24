@@ -18,34 +18,36 @@
 
 /* the icon container (bot icon) */
 .icon-container {
-  background-color: var(--cds-button-primary, #0f62fe);
+  //background-color: var(--cds-button-primary, #0f62fe);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 1rem;
+  margin-right: 0.2rem;
+  //border-radius: 50%;
 
   /* bot icon within the icon container */
   .bot-icon {
     margin: 0.5rem;
-    color: #ffffff;
+    color: #0f62fe;
   }
 }
 
 /* the chat message container */
 .message-container {
-  background-color: #e0e0e0;
+  //background-color: #e0e0e0;
   padding: 0.5rem 1rem;
 
   /* message header */
   .message-header {
     margin: 0;
-    font-weight: 600;
+    font-weight: 200;
     margin-bottom: 0.25rem;
   }
 
   /* paragraph styling within the message container */
   p {
     margin: 0.25rem 0;
+    font-size: 11pt;
   }
 
   /* list styling within the message container */
