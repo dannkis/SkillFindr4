@@ -44,7 +44,7 @@ const ChatInput = ({
           renderIcon={ArrowRight}
           iconDescription="send arrow icon"
           label="send"
-          onClick={sendMessage}
+          onClick={() => (input ? sendMessage() : null)}
         />
       </Column>
     </Grid>

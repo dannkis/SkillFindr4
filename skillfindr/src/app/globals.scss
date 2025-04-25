@@ -49,3 +49,13 @@ body {
 li {
   margin-bottom: 0.5rem;
 }
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.center-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

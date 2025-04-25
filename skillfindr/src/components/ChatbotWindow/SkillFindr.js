@@ -121,12 +121,13 @@ const SkillFindr = () => {
         {!isOpen && (
           // button for opening the chatbot
           <IconButton
-            renderIcon={Bot}
+            renderIcon={() => <Bot size={24} />}
+            size="lg"
             label=""
             iconDescription="Robot Icon"
             hasIconOnly
             onClick={() => setIsOpen(true)}
-            className="skillfindr__toggle-button"
+            className="skillfindr__toggle-button no-padding center-item"
           />
         )}
         {isOpen && (
