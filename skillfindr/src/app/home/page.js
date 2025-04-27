@@ -23,7 +23,14 @@ import {
 
 // import custom components
 import { InfoSection, InfoCard } from '@/components/InfoCard/InfoCard';
-import SkillFindr from '@/components/ChatbotWindow/SkillFindr';
+import dynamic from 'next/dynamic';
+
+const SkillFindr = dynamic(
+  () => import('@/components/ChatbotWindow/SkillFindr'),
+  {
+    ssr: false,
+  }
+);
 import Image from 'next/image';
 
 export default function LandingPage() {
@@ -63,7 +70,7 @@ export default function LandingPage() {
                     </h3>
                     <p className="landing-page__p">
                       <strong>SkillFindr</strong> is a frontend web application
-                      designed as a chatbot interface for IBM's{' '}
+                      designed as a chatbot interface for IBM&rsquo;s{' '}
                       <strong>SkillsBuild</strong> platform. It serves as a
                       user-friendly assistant to help learners discover relevant
                       online courses more easily. The chatbot leverages{' '}
@@ -71,8 +78,9 @@ export default function LandingPage() {
                       to recommend courses based on user input and preferences.
                       Unlike many existing platforms, SkillFindr focuses on
                       <strong> accessibility, responsiveness</strong>, and{' '}
-                      <strong>IBM's Carbon Design System</strong> to ensure a
-                      modern, consistent, and intuitive experience for users.
+                      <strong>IBM&rsquo;s Carbon Design System</strong> to
+                      ensure a modern, consistent, and intuitive experience for
+                      users.
                     </p>
                     <Button>Learn more</Button>
                   </Column>
@@ -97,10 +105,10 @@ export default function LandingPage() {
                     sm={4}
                     className="landing-page__tab-content">
                     <p className="landing-page__p">
-                      SkillFindr's design follows IBM's Carbon Design System,
-                      combining a clean, minimalist aesthetic with intuitive UI
-                      components to ensure consistency, brand alignment, and a
-                      seamless user experience.
+                      SkillFindr&rsquo;s design follows IBM&rsquo;s Carbon
+                      Design System, combining a clean, minimalist aesthetic
+                      with intuitive UI components to ensure consistency, brand
+                      alignment, and a seamless user experience.
                     </p>
                   </Column>
                 </Grid>
