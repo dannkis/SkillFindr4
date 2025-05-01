@@ -14,12 +14,13 @@ Frontend of an LLM-driven chatbot, that is meant to be used within IBM's SkillsB
 ## Installation
 After cloning the github repo, run:
 
-'cd skillfindr'
-'npm install'
+`cd skillfindr`
+
+`npm install`
 
 ## Deployment
 
-'npm run dev'
+`npm run dev`
 
 ## License
 
