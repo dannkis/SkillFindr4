@@ -24,7 +24,7 @@ Now, for the APIs to work you need to create a **.env** inside the **skillfindr*
 In my testing, I used llama3.2 model.
 
 ## Installation
-After cloning the github repo, run:
+After cloning the github repo, inside the unzipped folder run:
 
 `cd skillfindr`
 
