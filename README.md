@@ -21,7 +21,11 @@ Now, for the APIs to work you need to create a **.env** inside the **skillfindr*
 
 `OLLAMA_MODEL`
 
-In my testing, I used llama3.2 model.
+In my testing, I used llama3.2 model, where the .env values look something like:
+
+`OLLAMA_API_URL=http://localhost:11434/api/chat`
+
+`OLLAMA_MODEL=llama3.2`
 
 ## Installation
 After cloning the github repo, inside the unzipped folder run:
